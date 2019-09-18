@@ -1,16 +1,7 @@
 const Express = require("express");
 const ExpressGraphQL = require("express-graphql");
 const mongoose = require("mongoose");
-const {
-  GraphQLID,
-  GraphQLString,
-  GraphQLList,
-  GraphQLNonNull,
-  GraphQLObjectType,
-  GraphQLSchema
-} = require("graphql");
-
-const schema = require('./src/graphQL/index')
+const schema = require('./graphQL/index')
 var app = Express();
 
 mongoose.connect("mongodb://localhost/warnas", {
