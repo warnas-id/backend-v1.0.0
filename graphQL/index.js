@@ -23,4 +23,5 @@ const schema = new GraphQLSchema({
   query,
   mutation
 })
+
 module.exports = schema

@@ -2,7 +2,9 @@ const {
   GraphQLList
 } = require('graphql')
 const User = require('../../models/User')
-const userType = require('./type')
+import {
+  userType
+} from './type'
 
 module.exports = {
   getUser: {

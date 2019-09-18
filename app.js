@@ -1,7 +1,7 @@
-const Express = require("express");
-const ExpressGraphQL = require("express-graphql");
-const mongoose = require("mongoose");
-const schema = require('./graphQL/index')
+import Express from "express"
+import ExpressGraphQL from "express-graphql"
+import mongoose from "mongoose"
+import schema from './graphQL/index'
 var app = Express();
 
 mongoose.connect("mongodb://localhost/warnas", {

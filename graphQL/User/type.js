@@ -1,10 +1,12 @@
-const {
+import {
   GraphQLID,
   GraphQLString,
-  GraphQLObjectType
-} = require('graphql')
+  GraphQLObjectType,
+  GraphQLInt
+} from 'graphql'
 
-const userType = new GraphQLObjectType({
+
+export const userType = new GraphQLObjectType({
   name: "User",
   fields: () => ({
     id: {
@@ -22,4 +24,17 @@ const userType = new GraphQLObjectType({
   })
 })
 
-module.exports = userType
+export const authData = new GraphQLObjectType({
+  name: 'Auth',
+  fields: () => ({
+    userId: {
+      type: GraphQLID
+    },
+    token: {
+      type: GraphQLString
+    },
+    tokenExpiration: {
+      type: GraphQLInt
+    }
+  })
+})

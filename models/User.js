@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
@@ -16,7 +16,16 @@ const userSchema = new Schema({
   },
   contact: {
     type: String,
-    required: true
+  },
+  avatar: {
+    type: String
+  },
+  description: {
+    type: String
+  },
+  role: {
+    type: String,
+    default: 'member'
   }
 }, {
   timestamps: true

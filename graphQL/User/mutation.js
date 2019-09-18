@@ -1,12 +1,17 @@
-const User = require('../../models/User');
-const {
+import User from '../../models/User';
+import {
   GraphQLNonNull,
   GraphQLString
-} = require('graphql');
-const {
-  encode
-} = require('../../helpers/encrypt')
-const userType = require('./type')
+} from 'graphql';
+import {
+  encode,
+  decode
+} from '../../helpers/encrypt'
+import {
+  userType,
+  authData
+} from './type'
+import jwt from 'jsonwebtoken'
 
 module.exports = {
   register: {
@@ -49,6 +54,47 @@ module.exports = {
       } catch (err) {
         throw err;
       }
+    }
+  },
+
+  login: {
+    type: authData,
+    args: {
+      email: {
+        type: GraphQLNonNull(GraphQLString)
+      },
+      password: {
+        type: GraphQLNonNull(GraphQLString)
+      }
+    },
+    resolve: async (root, args) => {
+      const user = await User.findOne({
+        email: args.email
+      });
+      if (!user) {
+        throw new Error('User does not exist!');
+      }
+      const isEqual = await decode(args.password, user.password);
+      if (!isEqual) {
+        throw new Error('Password is incorrect!');
+      }
+      const {
+        id,
+        email
+      } = user
+      const token = jwt.sign({
+          userId: id,
+          email: email
+        },
+        'somesupersecretkey', {
+          expiresIn: '1h'
+        }
+      );
+      return {
+        userId: id,
+        token: token,
+        tokenExpiration: 1
+      };
     }
   }
 }
