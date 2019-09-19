@@ -1,7 +1,7 @@
-const {
+import {
   GraphQLList
-} = require('graphql')
-const User = require('../../models/User')
+} from 'graphql'
+import User from '../../models/User'
 import {
   userType
 } from './type'

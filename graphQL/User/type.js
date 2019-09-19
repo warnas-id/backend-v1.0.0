@@ -5,7 +5,6 @@ import {
   GraphQLInt
 } from 'graphql'
 
-
 export const userType = new GraphQLObjectType({
   name: "User",
   fields: () => ({

@@ -1,27 +1,29 @@
-const {
+import {
   GraphQLObjectType,
   GraphQLSchema
-} = require('graphql');
-const userMutation = require('./User/mutation')
-const userResolver = require('./User/resolver')
+} from 'graphql'
+import userMutation from './User/mutation'
+import userResolver from './User/resolver'
+import categoryMutation from './Category/mutation'
+import categoryResolver from './Category/resolver'
 
 const query = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
-    ...userResolver
+    ...userResolver,
+    ...categoryResolver
   })
 })
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
-    ...userMutation
+    ...userMutation,
+    ...categoryMutation
   })
 });
 
-const schema = new GraphQLSchema({
+export default new GraphQLSchema({
   query,
   mutation
-})
-
-module.exports = schema
+});

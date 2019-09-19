@@ -30,7 +30,7 @@ module.exports = {
         type: GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: async (root, args, context, info) => {
+    resolve: async (root, args) => {
       try {
         const existingUser = await User.findOne({
           email: args.email
