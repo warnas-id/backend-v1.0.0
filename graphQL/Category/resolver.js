@@ -11,6 +11,7 @@ import {
 module.exports = {
   getCategories: {
     name: 'Categories',
+    description: 'find all category',
     type: GraphQLList(categoryType),
     resolve: (root, args) => {
       return Category.find().exec()
@@ -18,10 +19,11 @@ module.exports = {
   },
 
   categoryById: {
-    name: "categoryById",
     type: categoryType,
+    description: 'find category by id',
     args: {
       id: {
+        description: 'input category ID',
         type: GraphQLNonNull(GraphQLID)
       }
     },

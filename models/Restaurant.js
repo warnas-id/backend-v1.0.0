@@ -25,12 +25,12 @@ const restoSchema = new Schema({
     name: String,
     price: Number
   }],
-  delivery: {
-    type: Array
-  },
-  payment: {
-    type: Array
-  },
+  delivery: [{
+    name: String
+  }],
+  payment: [{
+    name: String
+  }],
   price_range: {
     type: String
   },

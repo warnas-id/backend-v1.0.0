@@ -3,7 +3,7 @@ import {
   GraphQLString,
   GraphQLObjectType,
   GraphQLInt
-} from 'graphql'
+} from "graphql";
 
 export const userType = new GraphQLObjectType({
   name: "User",
@@ -21,13 +21,16 @@ export const userType = new GraphQLObjectType({
       type: GraphQLString
     }
   })
-})
+});
 
 export const authData = new GraphQLObjectType({
-  name: 'Auth',
+  name: "Auth",
   fields: () => ({
     userId: {
       type: GraphQLID
+    },
+    name: {
+      type: GraphQLString
     },
     token: {
       type: GraphQLString
@@ -36,4 +39,4 @@ export const authData = new GraphQLObjectType({
       type: GraphQLInt
     }
   })
-})
+});

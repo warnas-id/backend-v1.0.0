@@ -1,17 +1,8 @@
-import User from '../../models/User';
-import {
-  GraphQLNonNull,
-  GraphQLString
-} from 'graphql';
-import {
-  encode,
-  decode
-} from '../../helpers/encrypt'
-import {
-  userType,
-  authData
-} from './type'
-import jwt from 'jsonwebtoken'
+import User from "../../models/User";
+import { GraphQLNonNull, GraphQLString } from "graphql";
+import { encode, decode } from "../../helpers/encrypt";
+import { userType, authData } from "./type";
+import jwt from "jsonwebtoken";
 
 module.exports = {
   register: {
@@ -36,7 +27,7 @@ module.exports = {
           email: args.email
         });
         if (existingUser) {
-          throw new Error('User already exists.');
+          throw new Error("User already exists.");
         }
         const hashedPassword = await encode(args.password);
         const user = new User({
@@ -68,33 +59,34 @@ module.exports = {
       }
     },
     resolve: async (root, args) => {
+      console.log(args);
       const user = await User.findOne({
         email: args.email
       });
       if (!user) {
-        throw new Error('User does not exist!');
+        throw new Error("User does not exist!");
       }
       const isEqual = await decode(args.password, user.password);
       if (!isEqual) {
-        throw new Error('Password is incorrect!');
+        throw new Error("Password is incorrect!");
       }
-      const {
-        id,
-        email
-      } = user
-      const token = jwt.sign({
+      const { id, email, name } = user;
+      const token = jwt.sign(
+        {
           userId: id,
           email: email
         },
-        'somesupersecretkey', {
-          expiresIn: '1h'
+        "somesupersecretkey",
+        {
+          expiresIn: "1h"
         }
       );
       return {
         userId: id,
+        name: name,
         token: token,
         tokenExpiration: 1
       };
     }
   }
-}
+};
